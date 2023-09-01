@@ -1,7 +1,7 @@
 import { UnAuthorizedError } from "../errors/index.js";
 
 const checkuserPermission = (requestUser, userCreated) => {
-  if (requestUser.role === "admin") {
+  if (requestUser.userRole === "admin") {
     return;
   }
   if (requestUser.userId === userCreated.toString()) {

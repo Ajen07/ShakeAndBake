@@ -28,5 +28,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ajen07/ShakeAndBake.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ajen07/ShakeAndBake/issues"
+  },
+  "homepage": "https://github.com/Ajen07/ShakeAndBake#readme",
   "description": ""
 }

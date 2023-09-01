@@ -69,6 +69,7 @@ import {
   EDIT_REVIEW_SUCCESS,
   EDIT_REVIEW_ERROR,
   CHANGE_PAGE,
+  TOGGLE_MENU,
 } from "./action";
 import axios from "axios";
 
@@ -126,6 +127,7 @@ const initialState = {
   page: 1,
   reviews: [],
   reviewEditId: "",
+  isToggleMenu: false,
 };
 
 const AppProvider = ({ children }) => {
@@ -553,6 +555,9 @@ const AppProvider = ({ children }) => {
   const changePage = (page) => {
     dispatch({ type: CHANGE_PAGE, payload: { page } });
   };
+  const toggleMenu = () => {
+    dispatch({ type: TOGGLE_MENU });
+  };
   return (
     <AppContext.Provider
       value={{
@@ -585,6 +590,7 @@ const AppProvider = ({ children }) => {
         deleteReview,
         setEditReview,
         changePage,
+        toggleMenu
       }}
     >
       {children}

@@ -6,7 +6,7 @@ import star from "../assets/star.png";
 const Product = ({ name, price, _id, averageRating, freeDelivery, image }) => {
   const { deleteProduct, setEditId, user, addToCart } = useAppContext();
   return (
-    <article className="card w-96 bg-base-100 border hover:shadow-2xl h-1/2 lg:h-5/6">
+    <article className="card w-96 bg-base-100 border hover:shadow-2xl hover:-translate-y-4 transition-all h-1/2 lg:h-3/4">
       <figure>
         <img src={image} alt="Shoes" />
       </figure>

@@ -62,6 +62,7 @@ import {
   EDIT_REVIEW_SUCCESS,
   EDIT_REVIEW_ERROR,
   CHANGE_PAGE,
+  TOGGLE_MENU,
 } from "./action";
 import { initialState } from "./appContext";
 
@@ -335,7 +336,7 @@ const reducer = (state, action) => {
       description: "",
       flavour: "",
       image: "",
-      type: "cake",
+      type: "all",
       category: "general",
       freeDelivery: "false",
       inventory: "",
@@ -616,6 +617,12 @@ const reducer = (state, action) => {
     return {
       ...state,
       page: action.payload.page,
+    };
+  }
+  if (action.type === TOGGLE_MENU) {
+    return {
+      ...state,
+      isToggleMenu: !state.isToggleMenu,
     };
   }
 };

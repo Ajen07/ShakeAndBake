@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useAppContext } from "../../context/appContext";
+import SideBar from "../../componenets/SideBar";
 
 const SharedLayout = () => {
   const { showAlert } = useAppContext();
@@ -11,6 +12,7 @@ const SharedLayout = () => {
     <>
       <ToastContainer />
       <NavBar />
+      <SideBar />
       <main>
         <Outlet />
       </main>

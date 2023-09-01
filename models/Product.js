@@ -66,8 +66,15 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       default: 0,
     },
+    ratingCount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
+
+
 
 export default new mongoose.model("Product", ProductSchema);

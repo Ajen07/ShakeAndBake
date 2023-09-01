@@ -7,7 +7,8 @@ import Product from "../models/Product.js";
 import cloudinary from "cloudinary";
 import fs from "fs";
 import { StatusCodes } from "http-status-codes";
-import checkPermission from "../utils/checkPermissions.js";
+import checkPermissions from "../utils/checkPermissions.js";
+import Review from "../models/Review.js";
 
 const getAllProducts = async (req, res) => {
   const { search, page, category, type } = req.query;
@@ -59,7 +60,7 @@ const updateProduct = async (req, res) => {
   if (!product) {
     throw new NotFoundError(`No product with id ${productId}`);
   }
-  checkPermission(req.user);
+  checkPermissions(req.user);
   const updateProduct = await Product.findOneAndUpdate(
     { _id: productId },
     req.body,
@@ -74,12 +75,12 @@ const updateProduct = async (req, res) => {
 };
 const deleteProduct = async (req, res) => {
   const { id: productId } = req.params;
-  console.log(req.params);
   const product = await Product.findOne({ _id: productId });
   if (!product) {
     throw new NotFoundError(`No product with id ${productId}`);
   }
-  await product.remove();
+  await Review.deleteMany({ product: productId });
+  await Product.deleteOne({ _id: productId });
   res.status(StatusCodes.OK).json({ msg: "Product deleted successfully !!!" });
 };
 const uploadImage = async (req, res) => {

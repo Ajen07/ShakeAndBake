@@ -39,6 +39,15 @@ const createReview = async (req, res) => {
   }
   req.body.user = req.user.userId;
   const review = await Review.create(req.body);
+  const updateProduct = await Product.findOne({ _id: productId });
+  const currTotalRating =
+    parseInt(updateProduct.averageRating) * parseInt(updateProduct.ratingCount);
+  const newRating =
+    (currTotalRating + parseInt(rating)) /
+    (parseInt(updateProduct.ratingCount) + 1);
+  updateProduct.ratingCount = updateProduct.ratingCount + 1;
+  updateProduct.averageRating = newRating;
+  await updateProduct.save();
   res
     .status(StatusCodes.CREATED)
     .json({ msg: "review submitted successfully" });
@@ -51,10 +60,15 @@ const updateReview = async (req, res) => {
     throw new NotFoundError(`No review with id ${reviewId}`);
   }
   checkuserPermission(req.user, review.user);
+  const updateProduct = await Product.findOne({ _id: review.product });
+  const { averageRating, ratingCount } = updateProduct;
+  updateProduct.averageRating =
+    averageRating * ratingCount - review.rating + rating;
 
   review.title = title;
   review.comment = comment;
   review.rating = rating;
+  await updateProduct.save();
   await review.save();
   res.status(StatusCodes.OK).json({ msg: "Review updated successfully" });
 };
@@ -65,12 +79,22 @@ const deleteReview = async (req, res) => {
     throw new NotFoundError(`No review with id ${reviewId}`);
   }
   checkuserPermission(req.user, review.user);
+  const updateProduct = await Product.findOne({ _id: review.product });
+  const { averageRating, ratingCount } = updateProduct;
+  if (updateProduct.averageRating > 0) {
+    updateProduct.averageRating = averageRating * ratingCount - review.rating;
+    updateProduct.ratingCount -= 1;
+  }
+  await updateProduct.save();
   await Review.deleteOne({ _id: reviewId });
   res.status(StatusCodes.OK).json({ msg: "Review deleted successfully" });
 };
 const getSingleProductReview = async (req, res) => {
   const { id } = req.params;
-  const reviews = await Review.find({ product: id }).populate({path:'user',select:'name'});
+  const reviews = await Review.find({ product: id }).populate({
+    path: "user",
+    select: "name",
+  });
   res.json({ reviews });
 };
 export {
@@ -79,5 +103,5 @@ export {
   createReview,
   updateReview,
   deleteReview,
-  getSingleProductReview
+  getSingleProductReview,
 };
