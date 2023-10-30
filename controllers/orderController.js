@@ -92,7 +92,6 @@ const updateOrder = async (req, res) => {
   res.status(StatusCodes.OK).json({ order });
 };
 const cancelOrder = async (req, res) => {
-  console.log("gre");
   const { orderId } = req.params;
   const order = await Order.findOne({ _id: orderId });
   if (!order) {

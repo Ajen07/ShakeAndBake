@@ -3,33 +3,38 @@ import { useAppContext } from "../context/appContext";
 import { Link } from "react-router-dom";
 import star from "../assets/star.png";
 
-const Product = ({ name, price, _id, averageRating, freeDelivery, image }) => {
+const Product = ({ name, price, _id, averageRating, freeDelivery, image,ratingCount }) => {
   const { deleteProduct, setEditId, user, addToCart } = useAppContext();
   return (
-    <article className="card w-96 bg-base-100 border hover:shadow-2xl hover:-translate-y-4 transition-all h-1/2 lg:h-3/4">
+    <article className="card w-96 bg-base-100 border hover:shadow-2xl hover:-translate-y-4 transition-all h-1/2 lg:h-3/4 ">
       <figure>
-        <img src={image} alt="Shoes" />
+        <img src={image} alt="Shoes" className="" />
       </figure>
       <div className="card-body">
-        <div className="flex justify-between">
+        <div className="flex  flex-col">
           <h1 className="card-title text-2xl lg:text-3xl text-thulian-pink">
             {name}
           </h1>
-          {averageRating !== 0 && (
-            <div className="flex justify-center items-center gap-x-2">
-              <p>{averageRating}</p>
-
-              <img
-                src={star}
-                alt="Rating"
-                title="product rating"
-                className="w-[25px] h-8"
-              />
-            </div>
-          )}
+          <div>
+            {parseFloat(averageRating) === 0 ? null : (
+              <div className="flex items-center gap-x-2">
+                <span>{averageRating}</span>
+                <img
+                  src={star}
+                  alt="Rating"
+                  title="product rating"
+                  className="w-[25px] h-8 inline-block self-start"
+                />
+                <span>&#40;{ratingCount}&#41;</span>
+              </div>
+            )}
+          </div>
         </div>
         <h2 className="text-2xl">Rs.{price}</h2>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit magni commodi, ex atque repudiandae necessitatibus veritatis .</p>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit magni
+          commodi, ex atque repudiandae necessitatibus veritatis .
+        </p>
         <div className="card-actions justify-end mt-4">
           {user?.role === "admin" ? (
             <>
@@ -82,34 +87,5 @@ const Product = ({ name, price, _id, averageRating, freeDelivery, image }) => {
 export default Product;
 
 {
-  /* <article className="flex flex-col border border-thulian-pink rounded-lg h-5/6">
-      <img src={image} alt={name} className="w-full h-3/5 rounded-lg" />
-      <div className="flex justify-between">
-        <h2 className="text-xl lg:text-2xl">{name}</h2>
-        <h3>Rs.{price}</h3>
-      </div>
-      {user?.role === "admin" ? (
-        <div>
-          <Link to={`/admin-home/products/${_id}`}>view</Link>
-          <button type="button" onClick={() => deleteProduct(_id)}>
-            Delete
-          </button>
-          <Link to="/admin-home/add-product" onClick={() => setEditId(_id)}>
-            Update
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <Link to={`/dashboard/products/${_id}`}>view</Link>
-          <button
-            type="button"
-            onClick={() => {
-              addToCart(_id);
-            }}
-          >
-            Add to Cart
-          </button>
-        </div>
-      )}
-    </article> */
+  
 }

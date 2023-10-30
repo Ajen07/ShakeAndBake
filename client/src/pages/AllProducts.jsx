@@ -16,10 +16,11 @@ const AllProducts = () => {
     typeOptions,
     category,
     type,
+    page
   } = useAppContext();
   useEffect(() => {
     getAllProducts();
-  }, []);
+  }, [page,search]);
   const handleSubmit = (e) => {
     e.preventDefault();
     getAllProducts();

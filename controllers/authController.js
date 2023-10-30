@@ -35,7 +35,7 @@ const register = async (req, res) => {
     phoneNumber,
     verificationCode,
   });
-  const origin = "http://127.0.0.1:5173";
+  const origin = "http://localhost:5173";
   await verificationEmail({ to: email, origin, verificationCode, email });
   res.status(StatusCodes.CREATED).json({ msg:"verification link sent" });
 };
@@ -60,7 +60,6 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token });
 };
 const updateUser = async (req, res) => {
-  console.log("updateUser user");
 };
 const verifyEmail = async (req, res) => {
   const { verificationCode, email } = req.body;

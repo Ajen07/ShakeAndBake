@@ -25,11 +25,12 @@ const getAllProducts = async (req, res) => {
   const limit = 9;
   const skip = (Number(page) - 1) * limit;
 
+  const totalProducts=await Product.find({})
   const products = await Product.find(queryObject).skip(skip).limit(limit);
-  const totalPages = Math.ceil(products.length / limit);
+  const totalPages = Math.ceil(totalProducts.length / limit);
   res
     .status(StatusCodes.OK)
-    .json({ products, totalProducts: products.length, totalPages });
+    .json({ products, totalProducts: totalProducts.length, totalPages });
 };
 const getSingleProduct = async (req, res) => {
   const { id: productId } = req.params;

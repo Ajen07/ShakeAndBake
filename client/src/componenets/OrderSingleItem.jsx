@@ -13,7 +13,7 @@ const OrderSingleItem = ({ name, image, price, quantity ,_id}) => {
         </div>
       </div>
       <p className=" md:self-center text-center mx-auto font-semibold">Amount:&nbsp;Rs&nbsp;{price * quantity}</p>
-      <Link className=" md:self-center mx-auto text-center btn w-1/2 btn-secondary">View Details</Link>
+      <Link to={`/dashboard/products/${_id}`} className=" md:self-center mx-auto text-center btn w-1/2 btn-secondary">View Details</Link>
     </div>
   );
 };

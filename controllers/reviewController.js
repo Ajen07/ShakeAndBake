@@ -41,7 +41,7 @@ const createReview = async (req, res) => {
   const review = await Review.create(req.body);
   const updateProduct = await Product.findOne({ _id: productId });
   const currTotalRating =
-    parseInt(updateProduct.averageRating) * parseInt(updateProduct.ratingCount);
+    parseFloat(updateProduct.averageRating) * parseInt(updateProduct.ratingCount);
   const newRating =
     (currTotalRating + parseInt(rating)) /
     (parseInt(updateProduct.ratingCount) + 1);
@@ -63,7 +63,10 @@ const updateReview = async (req, res) => {
   const updateProduct = await Product.findOne({ _id: review.product });
   const { averageRating, ratingCount } = updateProduct;
   updateProduct.averageRating =
-    averageRating * ratingCount - review.rating + rating;
+    (parseFloat(averageRating) * parseInt(ratingCount) -
+      parseInt(review.rating) +
+      parseInt(rating)) /
+    parseInt(ratingCount);
 
   review.title = title;
   review.comment = comment;

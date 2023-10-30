@@ -264,6 +264,17 @@ const reducer = (state, action) => {
       isLoading: false,
       showAlert: false,
       product: action.payload.product,
+      name: "",
+      price: "",
+      description: "",
+      flavour: "",
+      image: "",
+      type: "all",
+      category: "general",
+      freeDelivery: "false",
+      inventory: "",
+      isEdit:false,
+      editId:""
     };
   }
   if (action.type === GET_SINGLE_PRODUCT_ERROR) {
@@ -340,6 +351,8 @@ const reducer = (state, action) => {
       category: "general",
       freeDelivery: "false",
       inventory: "",
+      isEdit:false,
+      editId:""
     };
   }
   if (action.type === UPDATE_PRODUCT_ERROR) {
