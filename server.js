@@ -30,7 +30,6 @@ const PORT = process.env.PORT || 5000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static(path.resolve(__dirname, "./client/dist")));
 app.use(cors());
 app.use(express.json());
 app.use(fileUpload({ useTempFiles: true }));
@@ -39,6 +38,7 @@ cloudinary.v2.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET,
 });
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
 
 app.use("/api/v1/auth", authRoutes);
