@@ -238,7 +238,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       showAlert: false,
-      products: [...action.payload.products],
+      products: action.payload.products,
       totalProducts: action.payload.totalProducts,
       totalPages: action.payload.totalPages,
     };
