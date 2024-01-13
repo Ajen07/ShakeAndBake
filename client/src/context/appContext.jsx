@@ -134,7 +134,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   /* axios.defaults.headers["Authorization"] = `Bearer ${state.token}`; */
   const authFetch = axios.create({
-    baseURL: "https://shakeandbake.onrender.com",
+    baseURL: "https://shakeandbake.onrender.com/api/v1",
   });
 
   authFetch.interceptors.request.use(
