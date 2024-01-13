@@ -22,7 +22,6 @@ export default function PaymentPage() {
   useEffect(() => {
     async function fetchClientSecret() {
       const  clientSecret  = await createOrder();
-      console.log(clientSecret);
       setClientSecret(clientSecret);
     }
     fetchClientSecret();

@@ -134,7 +134,7 @@ const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   /* axios.defaults.headers["Authorization"] = `Bearer ${state.token}`; */
   const authFetch = axios.create({
-    baseURL: "http://localhost:5000/api/v1",
+    baseURL: "https://shakeandbake.onrender.com",
   });
 
   authFetch.interceptors.request.use(
@@ -182,7 +182,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: REGISTER_USER_BEGINS });
     try {
       await axios.post(
-        `http://localhost:5000/api/v1/auth/register`,
+        `https://shakeandbake.onrender.com/api/v1/auth/register`,
         currentUser
       );
       dispatch({ type: REGISTER_USER_SUCCESS });
@@ -199,7 +199,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGINS });
     try {
       const { data } = await axios.post(
-        `http://localhost:5000/api/v1/auth/login`,
+        `https://shakeandbake.onrender.com/api/v1/auth/login`,
         currentUser
       );
       const { user, token } = data;
@@ -220,7 +220,7 @@ const AppProvider = ({ children }) => {
   const verifyEmail = async ({ verificationCode, email }) => {
     dispatch({ type: VERIFICATION_BEGINS });
     try {
-      await axios.post(`http://localhost:5000/api/v1/auth/verify-email`, {
+      await axios.post(`https://shakeandbake.onrender.com/api/v1/auth/verify-email`, {
         verificationCode,
         email,
       });
@@ -262,7 +262,7 @@ const AppProvider = ({ children }) => {
           image: { src },
         },
       } = await axios.post(
-        "http://localhost:5000/api/v1/products/upload-image",
+        "https://shakeandbake.onrender.com/api/v1/products/upload-image",
 
         formData,
 
@@ -301,7 +301,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_SINGLE_PRODUCT_BEGINS });
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/v1/products/${productId}`
+        `https://shakeandbake.onrender.com/api/v1/products/${productId}`
       );
       const { product } = data;
       dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: { product } });
