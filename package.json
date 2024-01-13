@@ -20,7 +20,11 @@
     "nodemon": "^2.0.22"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "setup-production": "npm run install-client && npm run build-client && npm install",
+    "install-client": "cd client && npm install",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "build-client": "cd client && npm run build"
   },
   "name": "server",
   "version": "1.0.0",
