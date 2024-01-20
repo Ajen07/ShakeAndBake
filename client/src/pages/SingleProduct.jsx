@@ -62,11 +62,6 @@ const SingleProduct = () => {
           alt="image-product-desktop"
           className="w-full sm:block h-full"
         />
-        <img
-          src={product?.image}
-          alt="product image"
-          className="w-full sm:hidden block"
-        />
 
         <div className="flex flex-col px-6 justify-between   bg-cwhite pb-6">
           <h2 className="text-sm text-grayish-blue mb-4 mt-2 uppercase tracking-widest">

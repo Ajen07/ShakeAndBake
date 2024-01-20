@@ -2,7 +2,7 @@ import React from "react";
 import { useAppContext } from "../context/appContext";
 
 const ReviewCard = ({
-  users: { name },
+  users,
   title,
   comment,
   rating,

@@ -16,8 +16,8 @@ const ReviewContainer = () => {
               comment={comment}
               rating={rating}
               title={title}
-              key={review._id}
-              userId={user._id}
+              key={_id}
+              userId={user?._id}
               _id={_id}
             />
           );
