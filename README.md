@@ -1,4 +1,4 @@
-# ShakeAndBake <a href="https://notes-app-bo24.onrender.com" style="font-size:1rem;margin-left:2rem">Live Site</a>
+# ShakeAndBake <a href="https://shakeandbake.onrender.com" style="font-size:1rem;margin-left:2rem">Live Site</a>
 
 Welcome to our delightful E-commerce platform dedicated to bringing you the finest cakes and milkshakes. Powered by the MERN (MongoDB, Express.js, React, Node.js,TailwindCSS) stack, our platform ensures a seamless shopping experience. Below are the key functionalities that enhance your shopping journey:
 
