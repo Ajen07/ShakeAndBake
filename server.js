@@ -10,7 +10,6 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
 
-
 //Database Connection
 import connectDB from "./db/connectDB.js";
 
@@ -18,7 +17,7 @@ import connectDB from "./db/connectDB.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
-import orderRoutes from './routes/orderRoutes.js'
+import orderRoutes from "./routes/orderRoutes.js";
 
 //Middleware
 import notFoundMiddleware from "./middlewares/notFound.js";
@@ -40,11 +39,10 @@ cloudinary.v2.config({
 });
 app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
-
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
-app.use("/api/v1/orders",authentication,orderRoutes)
+app.use("/api/v1/orders", authentication, orderRoutes);
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "./client/dist", "index.html"));
 });

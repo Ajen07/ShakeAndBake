@@ -204,7 +204,9 @@ const AppProvider = ({ children }) => {
       );
       const { user, token } = data;
       dispatch({ type: LOGIN_USER_SUCCESS, payload: { user, token } });
-      clearAlert();
+      toast.success("Login Success", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
       addUserToLocalStoage({ user, token });
     } catch (error) {
       dispatch({

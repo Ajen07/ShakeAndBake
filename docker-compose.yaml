@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  web:
+   depends_on:
+     - api
+   build: ./client  
+   ports:
+     - "5173:5173"
+   develop:
+     watch:
+        - path: ./client/package.json
+          action: rebuild
+        - path: ./client/package-lock.json
+          action: rebuild
+        - path: ./client
+          target: /app
+          action: sync 
+  api:
+   depends_on:
+     - db 
+   build: .
+   env_file:
+     - .env  # Specify the path to your .env file
+   ports:
+     - "5000:5000"
+   develop:
+     watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync        
+  db:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    volumes:
+      - database:/data/db         
+volumes:
+  database:    

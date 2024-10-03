@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FormRow from "../componenets/FormRow";
-import Alert from "../componenets/Alert";
 import { useAppContext } from "../context/appContext";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -15,8 +16,7 @@ const Register = () => {
     isMember: true,
   });
   const navigate = useNavigate();
-  const { isLoading, showAlert, displayAlert, loginUser, registerUser, user } =
-    useAppContext();
+  const { showAlert, loginUser, registerUser, user } = useAppContext();
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
@@ -25,7 +25,8 @@ const Register = () => {
     const value = e.target.value;
     setValues({ ...values, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const [isLoading, setIsloading] = useState(false);
+  const handleSubmit = async (e) => {
     const {
       firstName,
       lastName,
@@ -43,7 +44,6 @@ const Register = () => {
       (!values.isMember &&
         (!firstName || !lastName || !address || !phoneNumber))
     ) {
-      displayAlert();
     }
     const currentUser = {
       firstName,
@@ -53,10 +53,20 @@ const Register = () => {
       email,
       password,
     };
-    if (isMember) {
-      loginUser(currentUser);
-    } else {
-      registerUser(currentUser);
+    setIsloading(true);
+    try {
+      if (isMember) {
+        await loginUser(currentUser);
+        setIsloading(false);
+      } else {
+        await registerUser(currentUser);
+        setIsloading(false);
+      }
+    } catch (error) {
+      toast.error("Unexpected error");
+      setIsloading(false);
+    } finally {
+      setIsloading(false);
     }
   };
   useEffect(() => {
@@ -70,14 +80,14 @@ const Register = () => {
   }, [user, navigate]);
   return (
     <>
+      <ToastContainer />
       <section className=" mt-2">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 ">
           <div className="w-full bg-thulian-pink-md rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight  md:text-2xl text-center text-white">
-                Sign Up
+                {values.isMember ? "Sign In" : "Sign Up"}
               </h1>
-              {showAlert && <Alert />}
               <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 {!values.isMember && (
                   <>
@@ -138,7 +148,11 @@ const Register = () => {
                   className="w-full text-thulian-pink bg-white hover:bg-thulian-pink-very-light focus:ring-4 focus:outline-none focus:ring-thulian-pink font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   disabled={isLoading}
                 >
-                  {values.isMember ? "Sign In" : "Sign Up"}
+                  {isLoading
+                    ? "Authenticating...."
+                    : values.isMember
+                    ? "Sign Up"
+                    : "Sign In"}
                 </button>
                 <p className="text-sm font-light">
                   {values.isMember
